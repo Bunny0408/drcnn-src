@@ -4,7 +4,7 @@ Detection of Diabetic Retinopathy using Convolutional Neural Network
 
 
 
-**Steps to use the CLI -**
+__**Steps to use the CLI -**__
 
 Clone the repository from github
 
