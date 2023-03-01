@@ -3,6 +3,10 @@ Title
 Detection of Diabetic Retinopathy using Convolutional Neural Network 
 
 
+Dataset link : APTOS 2019 Blindness Detection 
+
+https://www.kaggle.com/competitions/aptos2019-blindness-detection/data
+
 
 __**Steps to use the CLI -**__
 
