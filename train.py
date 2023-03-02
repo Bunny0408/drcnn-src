@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Sep  5 09:05:33 2019
-
-@author: razat_ag
-"""
 
 import tensorflow as tf
 from keras.applications import InceptionV3
