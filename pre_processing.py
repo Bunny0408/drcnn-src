@@ -28,3 +28,8 @@ def preprocess_image(image):
 	opening = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
 	cv2.imwrite('25.png', tophat)
 	return opening
+
+
+img = cv2.imread("D:\\drcnn-src\\img2.jpg")
+
+preprocess_image(img)

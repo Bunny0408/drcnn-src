@@ -31,7 +31,10 @@ TR_2_folder = "training/2/"
 TR_3_folder = "training/3/"
 TR_4_folder = "training/4/"
 
+
+# We are creating database
 wd, ht = 100, 100
+
 def datasetCreate(TR_0_folder, TR_1_folder, TR_2_folder, TR_3_folder, TR_4_folder):
     
     X_train =[]
@@ -74,7 +77,7 @@ def datasetCreate(TR_0_folder, TR_1_folder, TR_2_folder, TR_3_folder, TR_4_folde
         
     return X_train, Y_train
 
-X_train, labels = datasetCreate(TR_0_folder, TR_1_folder, TR_2_folder, TR_3_folder, TR_4_folder)
+
 X_train = np.array(X_train)
 labels = np.array(labels)
 tr_indices = np.argmax(labels, axis = 1)
