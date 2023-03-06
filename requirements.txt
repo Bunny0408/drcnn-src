@@ -27,3 +27,4 @@ tensorflow-gpu
 tensorflow-hub                         
 utils                                  
 neptune-client                 
+tkinter
