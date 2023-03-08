@@ -125,22 +125,22 @@ def open_image():
 
 # Create a button to open an image file
 button_open_image = tk.Button(window, text="Open Image", command=open_image)
-button_open_image.pack()
+button_open_image.pack(pady=10)
 
 # Create a label to display the loaded image
 label_image = tk.Label(window)
-label_image.pack()
+label_image.pack(pady=10)
 
 label = tk.Label(window, text=selected_file_path)  
-label.pack()
+label.pack(pady=10)
 
 # Create a button widget for singleimage
 button = tk.Button(window, text="Results", command=single_img)
-button.pack()
+button.pack(pady=10)
 
 # Create a button widget
 button = tk.Button(window, text="Accuracy and confusion Matrix", command=accuracu_cm)
-button.pack()
+button.pack(pady=10)
 
 # Run the Tkinter event loop
 window.mainloop()
