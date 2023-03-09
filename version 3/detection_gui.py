@@ -1,9 +1,24 @@
-import main1
+import main_org
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import threading
+import subprocess
+import tkcalendar
+from tkcalendar import DateEntry
+import pymysql.cursors
+
+
+# Connect to the database
+connection = pymysql.connect(
+    host='localhost',
+    user='root',
+    password='root',
+    db='dr_cnn',
+    charset='utf8mb4',
+    cursorclass=pymysql.cursors.DictCursor
+)
 
 
 # Global variable to store the selected file path
@@ -18,6 +33,7 @@ window.title("DRCNN")
 # ------------------------------------Single Iamge Result-----------------------------------
 def single_img():
     global selected_file_path
+    global report
 
 
     if selected_file_path == "":
@@ -32,28 +48,32 @@ def single_img():
 
     
 
-    report = main1.single_predict(selected_file_path)
+    report = main_org.single_predict(selected_file_path)
     
     if report == 0:
         
         text = "Final Result is : No DR"
         label = tk.Label(window, text=text)  
         label.pack() 
+
     elif report == 1:
         
         text = "Final Result is : Mild DR"
         label = tk.Label(window, text=text)  
         label.pack()
+
     elif report == 2:   
         
         text = "Final Result is : Moderate DR"
         label = tk.Label(window, text=text)  
         label.pack()
+
     elif report == 3:
         
         text = "Final Result is : Severe DR"
         label = tk.Label(window, text=text)  
         label.pack()
+
     else:
         
         text = "Final Result is : Proliferative DR"
@@ -71,7 +91,7 @@ def accuracu_cm():
     
 
 
-    report = main1.predict_all()
+    all = main_org.predict_all()
 
     # # Remove the progress bar after the loading is over
     # progress.stop()
@@ -79,13 +99,13 @@ def accuracu_cm():
 
     # Create a new window to display the report
     # window = tk.Toplevel()
-    # window.geometry("400x400")
+    # window.geometry("800x800")
     # window.title("Accuracy and Confusion Matrix")
 
 
     # Create a label to display the report
-    label = tk.Label(window, text=report, justify="left")
-    label.pack()
+    label = tk.Label(window, text=all, justify="left")
+    label.pack(padx=5, pady=10)
 
 
 
@@ -111,73 +131,108 @@ def open_image():
 
     text = "Image Selected"
     label = tk.Label(window, text=text)  
-    label.pack() 
+    label.pack(padx=5, pady=10) 
     
 
     label = tk.Label(window, text=selected_file_path)  
-    label.pack()
+    label.pack(padx=5, pady=10)
     
 
     # single_img(file_path)
     return selected_file_path
     
+def query():
+    global report
+    with connection.cursor() as cursor:
+        sql = "INSERT INTO records (pname, gender, age, report) VALUES (%s, %s, %s, %d)"
+        cursor.execute(sql, (pname, gender, age, report))
+        connection.commit()
+
+def both_functions():
+    global report
+    single_img()
+    query()
 
 
-# Main Heading
-text = "Dection of Diabetic Retinopathy"
-label = tk.Label(window, text=text)  
-label.pack()
 
 
+# Heading
+heading = tk.Label(window, text="Detection of Diabetic Retinopathy", font=("Arial", 16), anchor = "center")
+heading.pack(pady=10)
+
+def open_main_gui():
+    subprocess.Popen(['python', 'main_gui.py'])  # Open main_gui.py in a new process
+
+button1 = tk.Button(window, text="Back", padx=10, pady=5, command=open_main_gui)
+button1.pack(side=tk.RIGHT, padx=5, pady=10, anchor=tk.NE) 
 
 # Patient name
-label = tk.Label(window, text="Patient Name: ")
+label = tk.Label(window, text="Patient Name: ", anchor="center")
 label.pack()
-text_box = tk.Text(window, height=1, width=15)
-text_box.pack()
-
-
+pname = tk.Text(window, height=1, width=15)
+pname.pack(padx=5, pady=10)
 
 # Gender Radio button
 # Create a Label widget
-label = tk.Label(window, text="Select an option:")
-label.pack()
+label = tk.Label(window, text="Select Gender:", anchor="center")
+label.pack(padx=5, pady=10)
 # Create a StringVar to store the selected option
-option_var = tk.StringVar()
+gender = tk.StringVar()
 # Create a dropdown widget
-dropdown = ttk.Combobox(window, textvariable=option_var, values=["Female", "Male", "other"])
-dropdown.pack()
+dropdown = ttk.Combobox(window, textvariable=gender, values=["Select an option","Female", "Male", "other"])
+dropdown.pack(padx=5, pady=10)
 # Set a default value for the dropdown
 dropdown.current(0)
 
 
 
 # Age
-label = tk.Label(window, text="Age: ")
-label.pack()
-text_box = tk.Text(window, height=1, width=5)
-text_box.pack()
+label = tk.Label(window, text="Age: ", anchor="center")
+label.pack(padx=5, pady=10)
+age_str = tk.Text(window, height=1, width=5)
+age_str.pack(padx=5, pady=10)
 
+age = age_str.get("1.0", "end-1c") 
 
+# import datetime module
+import datetime
 
+# create a label for the date picker widget
+date_label = tk.Label(window, text='Select a date: (DD/MM/YYYY)')
+date_label.pack(pady=10)
 
+# create a date picker widget
+date_entry = DateEntry(window, width=12, background='darkblue',
+                       foreground='white', borderwidth=2,
+                       date_pattern='dd/mm/yyyy')
 
+# set the current date as the default value for the date picker
+today = datetime.date.today()
+date_entry.set_date(today)
+
+# set the format of the displayed date in the widget
+date_entry.config(date_pattern='dd/mm/yyyy')
+
+date_entry.pack(pady=10)
 
 
 # Create a button to open an image file
 button_open_image = tk.Button(window, text="Open Image", command=open_image)
-button_open_image.pack()
+button_open_image.pack(padx=5, pady=10)
 
 # Create a label to display the loaded image
 label_image = tk.Label(window)
-label_image.pack()
+label_image.pack(padx=5, pady=10)
 
 label = tk.Label(window, text=selected_file_path)  
-label.pack()
+label.pack(padx=5, pady=10)
+
+
+
 
 # Create a button widget for singleimage
-button = tk.Button(window, text="Results", command=single_img)
-button.pack()
+button = tk.Button(window, text="Results", command=both_functions)
+button.pack(padx=5, pady=10)
 
 # # Create a button widget for accuracy and Matrix
 # button = tk.Button(window, text="Accuracy and confusion Matrix", command=accuracu_cm)
@@ -185,4 +240,3 @@ button.pack()
 
 # Run the Tkinter event loop
 window.mainloop()
-
