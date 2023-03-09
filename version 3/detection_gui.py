@@ -11,7 +11,7 @@ selected_file_path = ""
 
 # Create a Tkinter window
 window = tk.Tk()
-window.geometry("400x400")
+window.geometry("800x800")
 window.title("DRCNN")
 
 
