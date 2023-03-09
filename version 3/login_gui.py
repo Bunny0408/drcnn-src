@@ -2,7 +2,7 @@ import tkinter as tk
 import subprocess
 
 root = tk.Tk()
-window.geometry("800x800")
+root.geometry("800x800")
 root.title("Login Page")
 
 # Heading
