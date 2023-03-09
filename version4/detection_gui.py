@@ -54,35 +54,35 @@ def single_img():
         
         text = "Final Result is : No DR"
         result = "No DR"
-        label = tk.Label(window, text=text)  
+        label = tk.Label(window, text=text, fg="yellow")  
         label.pack() 
 
     elif report == 1:
         
         text = "Final Result is : Mild DR"
         result = "Mild DR"
-        label = tk.Label(window, text=text)  
+        label = tk.Label(window, text=text, fg="yellow")  
         label.pack()
 
     elif report == 2:   
         
         text = "Final Result is : Moderate DR"
         result = "Moderate DR"
-        label = tk.Label(window, text=text)  
+        label = tk.Label(window, text=text, fg="red")  
         label.pack()
 
     elif report == 3:
         
         text = "Final Result is : Severe DR"
         result = "Severe DR"
-        label = tk.Label(window, text=text,bg="red", fg="white")  
+        label = tk.Label(window, text=text, fg="red")  
         label.pack()
 
     else:
         
         text = "Final Result is : Proliferative DR"
         result = "Proliferative DR"
-        label = tk.Label(window, text=text)  
+        label = tk.Label(window, text=text, fg="red")  
         label.pack()
 
 
