@@ -2,7 +2,7 @@ import tkinter as tk
 import subprocess
 
 root = tk.Tk()
-window.geometry("800x800")
+root.geometry("800x800")
 root.title("Main page")
 
 # Heading
@@ -16,7 +16,10 @@ def open_detection_gui():
 button1 = tk.Button(root, text="DR Detection", padx=10, pady=5, command=open_detection_gui)
 button1.pack(side=tk.LEFT, padx=5, pady=10)
 
-button2 = tk.Button(root, text="Past Records", padx=10, pady=5)
+def open_precords_gui():
+    subprocess.Popen(['python', 'precords_gui.py'])  # Open precords_gui.py in a new process
+
+button2 = tk.Button(root, text="Past Records", padx=10, pady=5, command=open_precords_gui)
 button2.pack(side=tk.RIGHT, padx=5, pady=10)
 
 def open_login_gui():
