@@ -1,4 +1,4 @@
-import main1
+import main_org
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
@@ -48,7 +48,7 @@ def single_img():
 
     
 
-    report = main1.single_predict(selected_file_path)
+    report = main_org.single_predict(selected_file_path)
     
     if report == 0:
         
@@ -92,7 +92,7 @@ def accuracu_cm():
 
 
 
-    all = main1.predict_all()
+    all = main_org.predict_all()
 
     # Create a label to display the report
     label = tk.Label(window, text=all, justify="left")
@@ -247,4 +247,3 @@ button.pack(padx=5, pady=10)
 
 # Run the Tkinter event loop
 window.mainloop()
-
