@@ -20,13 +20,12 @@ window.geometry("{0}x{1}+0+0".format(window.winfo_screenwidth(), window.winfo_sc
 window.title("Report List Page")
 
 # Heading
-heading = tk.Label(window, text="Past History of patients", font=("Arial", 16), anchor="center")
+heading = tk.Label(window, text="Past History of Patients", font=("Arial", 16), anchor="center")
 heading.grid(row=0, column=0, columnspan=4, pady=10)
 
 # ------------------------------------Open main_gui.py in a new process-----------------------------------
 def open_main_gui():
     subprocess.Popen(['python', 'main_gui.py'])  # Open main_gui.py in a new process
-
 
 # Create a list of column names
 column_names = ['Patient ID', 'Name', 'Gender', 'Age', 'Date', 'Result']
@@ -40,7 +39,7 @@ for j, column_name in enumerate(column_names):
     label.grid(row=1, column=j, padx=5, pady=5)
 
 button = tk.Button(window, text="Back to Main", padx=10, pady=5, command=open_main_gui)
-button.grid(row=0, column=3, padx=5, pady=10, sticky=tk.NE) 
+button.grid(row=0, column=3, padx=5, pady=10, sticky="NE") 
 
 cursor = connection.cursor()
 
