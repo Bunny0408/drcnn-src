@@ -30,3 +30,22 @@ Arguments for command line -
 
 Example -
 python3.6 main.py -i image.png
+
+
+__**TO create database**__
+CREATE DATABASE records;
+
+
+USE records;
+
+
+
+CREATE TABLE records (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  pname VARCHAR(50),
+  gender VARCHAR(50),
+  age VARCHAR(50),
+  date VARCHAR(50),
+  result VARCHAR(50) 
+);
+
