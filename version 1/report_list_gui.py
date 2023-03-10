@@ -38,7 +38,9 @@ for j, column_name in enumerate(column_names):
     label = tk.Label(window, text=column_name, font=("Arial", 14, "bold"), relief=tk.RIDGE, width=20)
     label.grid(row=1, column=j, padx=5, pady=5)
 
-button = tk.Button(window, text="Back to Main", padx=10, pady=5, command=open_main_gui)
+
+
+button = tk.Button(window, text="Back", padx=10, pady=5, command=open_main_gui)
 button.grid(row=0, column=3, padx=5, pady=10, sticky="NE") 
 
 cursor = connection.cursor()
