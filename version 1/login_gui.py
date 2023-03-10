@@ -30,7 +30,9 @@ def open_main_gui():
     if username == "admin" and password == "admin":
         subprocess.Popen(['python', 'main_gui.py'])  # Open main_gui.py in a new process
     else:
-        messagebox.showerror("Error", "Invalid username or password")
+        error_message = tk.Label(window, text="Invalid username or password", fg="red")
+        error_message.pack(pady=5)
+        password_entry.delete(0, tk.END) # Clear the password input field
 
 
 login_button = tk.Button(window, text="Login", padx=10, pady=5, command=open_main_gui)
