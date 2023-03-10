@@ -12,7 +12,7 @@ from sklearn.utils import class_weight
 from sklearn.metrics import confusion_matrix, accuracy_score
 import matplotlib.pyplot as plt
 from keras.models import model_from_json
-import argparse
+# import argparse
 
 tf.compat.v1.disable_eager_execution()
 init_g = tf.compat.v1.global_variables_initializer()
@@ -21,16 +21,16 @@ with tf.compat.v1.Session() as sess:
     sess.run(init_g)
     sess.run(init_l)
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-a', '--all', help='Run algorithm on all images', action='store_true')
-parser.add_argument('-i', '--image', help='Run algorithm on single image')
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument('-a', '--all', help='Run algorithm on all images', action='store_true')
+# parser.add_argument('-i', '--image', help='Run algorithm on single image')
+# args = parser.parse_args()
 
 
 def single_predict(image_name):
 
     print(image_name)
-
+    
     img = cv2.imread(image_name)
     wd, ht = 100, 100
     im = cv2.resize(img, (wd, ht))
@@ -74,26 +74,31 @@ def single_predict(image_name):
         if vr_indices2[i] == 0:
             if vr_indices1[i] == 0:
                 indices[i] = 0
+                return 0
             elif vr_indices1[i] == 1:
                 indices[i] = 1
+                return 1
             else:
                 indices[i] = 2
+                return 2
         else:
             if vr_indices3[i] == 0:
                 indices[i] = 3
+                return 3
             else:
                 indices[i] = 4
+                return 4
 
-    if indices[0] == 0:
-        print('Final Result is : No DR')
-    elif indices[0] == 1:
-        print('Final Result is : Mild DR')
-    elif indices[0] == 2:
-        print('Final Result is : Moderate DR')
-    elif indices[0] == 3:
-        print('Final Result is : Severe DR')
-    else:
-        print('Final Result is : Proliferative DR')
+    # if indices[0] == 0:
+    #     print('Final Result is : No DR')
+    # elif indices[0] == 1:
+    #     print('Final Result is : Mild DR')
+    # elif indices[0] == 2:
+    #     print('Final Result is : Moderate DR')
+    # elif indices[0] == 3:
+    #     print('Final Result is : Severe DR')
+    # else:
+    #     print('Final Result is : Proliferative DR')
 
 
 def datasetCreate(TR_0_folder, TR_1_folder, TR_2_folder, TR_3_folder, TR_4_folder):
@@ -200,13 +205,23 @@ def predict_all():
                 indices[i] = 4
 
     cm = confusion_matrix(tr_indices, indices)
-    print('CONFUSION MATRIX : ')
-    print(cm)
+    # print('CONFUSION MATRIX : ')
+    # print(cm)
+    
     acc_tr = accuracy_score(tr_indices, indices)
-    print('ACCURACY : ', acc_tr)
+    accuracy_percent = "{:.1%}".format(acc_tr)
+  
+    # print('ACCURACY : ', accuracy_percent)
+
+    # Return accuracy and confusion matrix as a string
+    report = "Accuracy: {}\n\nConfusion Matrix:\n{}".format(accuracy_percent, cm)
+    print("Done")
+    return report
 
 
-if args.all:
-    predict_all()
-elif args.image:
-    single_predict(args.image)
+# if args.all:
+#     predict_all()
+# elif args.image:
+#     single_predict(args.image)
+
+    
